@@ -5,11 +5,11 @@
  */
 package edu.cecar.vistas;
 
-import edu.ceca.modelos.Album;
-import edu.ceca.modelos.Coment;
-import edu.ceca.modelos.Photo;
-import edu.ceca.modelos.Post;
-import edu.ceca.modelos.User;
+import edu.cecar.modelos.Album;
+import edu.cecar.modelos.Coment;
+import edu.cecar.modelos.Photo;
+import edu.cecar.modelos.Post;
+import edu.cecar.modelos.User;
 import edu.cecar.controladores.ControladorAPIGoRest;
 import java.awt.Toolkit;
 import java.util.ArrayList;

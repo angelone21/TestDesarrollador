@@ -1,5 +1,5 @@
 
-package edu.ceca.modelos;
+package edu.cecar.modelos;
 
 /**
  * Clase: Post

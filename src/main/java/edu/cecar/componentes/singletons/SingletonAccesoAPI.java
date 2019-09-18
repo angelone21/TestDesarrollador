@@ -18,7 +18,7 @@ import us.monoid.web.Resty;
  *
  * Copyrigth: CECAR
  */
-public class SingletonAccesoAPI {
+public final class SingletonAccesoAPI {
 
     private static JSONObject conexionUser;
     private static JSONObject conexionPost;

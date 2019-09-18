@@ -14,7 +14,7 @@ package edu.cecar.modelos;
  * 
  * Copyrigth: CECAR
  */
-public class User {
+public final class User {
     
     private int id_user;
     private String first_name;

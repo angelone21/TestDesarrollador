@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.cecar.vistas;
 
 import edu.cecar.modelos.Album;
@@ -11,8 +6,16 @@ import edu.cecar.modelos.Photo;
 import edu.cecar.modelos.Post;
 import edu.cecar.modelos.User;
 import edu.cecar.controladores.ControladorAPIGoRest;
+import edu.cecar.controladores.ControladorAlbum;
+import edu.cecar.controladores.ControladorComent;
+import edu.cecar.controladores.ControladorPhoto;
+import edu.cecar.controladores.ControladorPost;
+import edu.cecar.controladores.ControladorUser;
 import java.awt.Toolkit;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -69,6 +72,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         table_user1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("GoRest");
         setExtendedState(MAXIMIZED_BOTH);
         setMinimumSize(Toolkit.getDefaultToolkit().getScreenSize());
         setResizable(false);
@@ -325,12 +329,12 @@ public class VistaPrincipal extends javax.swing.JFrame {
         panel_listar.setVisible(false);
         try {
             int id_user;
-            int id_post;
-            int id_album;
+            int id_album = 0;
+            int id_post = 0;
             id_user = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del usuario: "));
             ControladorAPIGoRest controladorAPIGoRest = new ControladorAPIGoRest();
 
-            ArrayList<User> users = controladorAPIGoRest.descargarUser();
+            ArrayList<User> users = controladorAPIGoRest.obtenerUser();
             DefaultTableModel modeloUser = new DefaultTableModel();
             modeloUser.addColumn("ID");
             modeloUser.addColumn("First Name");
@@ -348,7 +352,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
             table_user.setModel(modeloUser);
             String datosUser[] = new String[13];
 
-            ArrayList<Post> posts = controladorAPIGoRest.descargarPost();
+            ArrayList<Post> posts = controladorAPIGoRest.obtenerPost();
             DefaultTableModel modeloPost = new DefaultTableModel();
             modeloPost.addColumn("ID Post");
             modeloPost.addColumn("ID User");
@@ -358,8 +362,14 @@ public class VistaPrincipal extends javax.swing.JFrame {
             modeloPost.addColumn("Edit");
             table_posts.setModel(modeloPost);
             String datosPost[] = new String[6];
+            for (int i = 0; i < posts.size(); i++) {
+                if (posts.get(i).getId_user() == id_user) {
+                    id_post = posts.get(i).getId_post();
+                    break;
+                }
+            }
 
-            ArrayList<Photo> photos = controladorAPIGoRest.descargarPhoto();
+            ArrayList<Photo> photos = controladorAPIGoRest.obtenerPhoto();
             DefaultTableModel modeloPhoto = new DefaultTableModel();
             modeloPhoto.addColumn("ID Photo");
             modeloPhoto.addColumn("ID Album");
@@ -371,7 +381,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
             table_photos.setModel(modeloPhoto);
             String datosPhoto[] = new String[7];
 
-            ArrayList<Coment> coments = controladorAPIGoRest.descargarComent();
+            ArrayList<Coment> coments = controladorAPIGoRest.obtenerComent();
             DefaultTableModel modeloComent = new DefaultTableModel();
             modeloComent.addColumn("ID Coment");
             modeloComent.addColumn("ID Post");
@@ -383,7 +393,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
             table_comments.setModel(modeloComent);
             String datosComent[] = new String[7];
 
-            ArrayList<Album> albums = controladorAPIGoRest.descargarAlbum();
+            ArrayList<Album> albums = controladorAPIGoRest.obtenerAlbum();
             DefaultTableModel modeloAlbum = new DefaultTableModel();
             modeloAlbum.addColumn("ID Album");
             modeloAlbum.addColumn("ID User");
@@ -392,6 +402,12 @@ public class VistaPrincipal extends javax.swing.JFrame {
             modeloAlbum.addColumn("Edit");
             table_albums.setModel(modeloAlbum);
             String datosAlbum[] = new String[5];
+            for (int i = 0; i < albums.size(); i++) {
+                if (albums.get(i).getId_user() == id_user) {
+                    id_album = albums.get(i).getId_album();
+                    break;
+                }
+            }
 
             //falta descargar imagenes.
             users.stream().filter(u -> u.getId_user() == id_user).forEach((u) -> {
@@ -408,9 +424,46 @@ public class VistaPrincipal extends javax.swing.JFrame {
                 modeloUser.addRow(datosUser);
             });
 
+            //falta descargar imagenes.
             posts.stream().filter(p -> p.getId_user() == id_user).forEach((p) -> {
-                //id_post = p.getId_post();
+                datosPost[0] = p.getId_post() + "";
+                datosPost[1] = p.getId_user() + "";
+                datosPost[2] = p.getTitle();
+                datosPost[3] = p.getBody();
+                modeloPost.addRow(datosPost);
             });
+
+            //Falta descargar imagenes.
+            albums.stream().filter(a -> a.getId_user() == id_user).forEach((a) -> {
+                datosAlbum[0] = a.getId_album() + "";
+                datosAlbum[1] = a.getId_user() + "";
+                datosAlbum[2] = a.getTitle();
+                modeloAlbum.addRow(datosAlbum);
+            });
+
+            //falta descargar imagenes.
+            for (int i = 0; i < coments.size(); i++) {
+                if (coments.get(i).getId_post() == id_post) {
+                    datosComent[0] = coments.get(i).getId_coment() + "";
+                    datosComent[1] = coments.get(i).getId_post() + "";
+                    datosComent[2] = coments.get(i).getBody();
+                    datosComent[3] = coments.get(i).getName();
+                    datosComent[4] = coments.get(i).getEmail();
+                    modeloComent.addRow(datosComent);
+                }
+            }
+
+            //falta descargar imagenes. 
+            for (int i = 0; i < photos.size(); i++) {
+                if (photos.get(i).getId_album() == id_album) {
+                    datosPhoto[0] = photos.get(i).getId_photo() + "";
+                    datosPhoto[1] = photos.get(i).getId_album() + "";
+                    datosPhoto[2] = photos.get(i).getTitle();
+                    datosPhoto[3] = photos.get(i).getUrl();
+                    modeloPhoto.addRow(datosPhoto);
+                }
+            }
+
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "ID ingresado no encontrado o erroneo");
             panel_tablas2.setVisible(false);
@@ -424,7 +477,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         panel_tablas2.setVisible(false);
         panel_listar.setVisible(true);
         ControladorAPIGoRest controladorAPIGoRest = new ControladorAPIGoRest();
-        ArrayList<User> users = controladorAPIGoRest.descargarUser();
+        ArrayList<User> users = controladorAPIGoRest.obtenerUser();
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("First Name");
         modelo.addColumn("Last Name");
@@ -453,6 +506,42 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
     private void bt_MigrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_MigrarActionPerformed
         // TODO add your handling code here:
+        ControladorUser controladorUser = new ControladorUser();
+        ControladorPost controladorPost = new ControladorPost();
+        ControladorPhoto controladorPhoto = new ControladorPhoto();
+        ControladorComent controladorComent = new ControladorComent();
+        ControladorAlbum controladorAlbum = new ControladorAlbum();
+        ControladorAPIGoRest controladorAPIGoRest = new ControladorAPIGoRest();
+
+        ArrayList<User> users = controladorAPIGoRest.obtenerUser();
+        ArrayList<Post> posts = controladorAPIGoRest.obtenerPost();
+        ArrayList<Photo> photos = controladorAPIGoRest.obtenerPhoto();
+        ArrayList<Coment> coments = controladorAPIGoRest.obtenerComent();
+        ArrayList<Album> albums = controladorAPIGoRest.obtenerAlbum();
+
+        try {
+            for (int i = 0; i < users.size(); i++) {
+                controladorUser.guardar(users.get(i));
+            }
+            for (int i = 0; i < posts.size(); i++) {
+                controladorPost.guardar(posts.get(i));
+            }
+            for (int i = 0; i < albums.size(); i++) {
+                controladorAlbum.guardar(albums.get(i));
+            }
+            for (int i = 0; i < photos.size(); i++) {
+                controladorPhoto.guardar(photos.get(i));
+            }
+            for (int i = 0; i < coments.size(); i++) {
+                controladorComent.guardar(coments.get(i));
+            }
+
+            JOptionPane.showMessageDialog(null, "Datos migrados a la base de datos correctamente.");
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Hubo un error al migrar los datos a la base de datos.");
+        }
+
 
     }//GEN-LAST:event_bt_MigrarActionPerformed
 

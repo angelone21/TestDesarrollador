@@ -14,7 +14,7 @@ package edu.cecar.modelos;
  * 
  * Copyrigth: CECAR
  */
-public class Coment {
+public final class Coment {
     
     private int id_coment;
     private int id_post;

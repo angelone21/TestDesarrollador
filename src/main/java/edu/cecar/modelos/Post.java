@@ -14,7 +14,7 @@ package edu.cecar.modelos;
  * 
  * Copyrigth: CECAR
  */
-public class Post {
+public final class Post {
     
     private int id_post;
     private int id_user;

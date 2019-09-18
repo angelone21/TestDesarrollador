@@ -14,7 +14,7 @@ package edu.cecar.modelos;
  * 
  * Copyrigth: CECAR
  */
-public class Photo {
+public final class Photo {
     
     private int id_photo;
     private int id_album;

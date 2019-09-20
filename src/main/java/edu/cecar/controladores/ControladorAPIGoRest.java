@@ -33,7 +33,7 @@ public final class ControladorAPIGoRest {
             JSONObject acceso = SingletonAccesoAPI.getinstanceUser();
             JSONArray jsonArrayResult = acceso.getJSONArray("result");
             for (int i = 0; i < jsonArrayResult.length(); i++) {
-                User user = new User(Integer.parseInt(jsonArrayResult.getJSONObject(i).get("id").toString()), jsonArrayResult.getJSONObject(i).get("first_name").toString(), jsonArrayResult.getJSONObject(i).get("last_name").toString(), jsonArrayResult.getJSONObject(i).get("gender").toString(), jsonArrayResult.getJSONObject(i).get("dob").toString(), jsonArrayResult.getJSONObject(i).get("email").toString(), jsonArrayResult.getJSONObject(i).get("phone").toString(), jsonArrayResult.getJSONObject(i).get("website").toString(), jsonArrayResult.getJSONObject(i).get("address").toString(), jsonArrayResult.getJSONObject(i).get("status").toString(), jsonArrayResult.getJSONObject(i).getJSONObject("_links").get("self").toString(), jsonArrayResult.getJSONObject(i).getJSONObject("_links").get("edit").toString(), jsonArrayResult.getJSONObject(i).getJSONObject("_links").get("avatar").toString());
+                User user = new User(Integer.parseInt(jsonArrayResult.getJSONObject(i).get("id").toString()), jsonArrayResult.getJSONObject(i).get("first_name").toString(), jsonArrayResult.getJSONObject(i).get("last_name").toString(), jsonArrayResult.getJSONObject(i).get("gender").toString(), jsonArrayResult.getJSONObject(i).get("dob").toString(), jsonArrayResult.getJSONObject(i).get("email").toString(), jsonArrayResult.getJSONObject(i).get("phone").toString(), jsonArrayResult.getJSONObject(i).get("website").toString(), jsonArrayResult.getJSONObject(i).get("address").toString(), jsonArrayResult.getJSONObject(i).get("status").toString(), jsonArrayResult.getJSONObject(i).getJSONObject("_links").getJSONObject("self").get("href").toString(), jsonArrayResult.getJSONObject(i).getJSONObject("_links").getJSONObject("edit").get("href").toString(), jsonArrayResult.getJSONObject(i).getJSONObject("_links").getJSONObject("avatar").get("href").toString());
                 users.add(user);
             }
 
@@ -49,7 +49,7 @@ public final class ControladorAPIGoRest {
             JSONObject acceso = SingletonAccesoAPI.getinstancePost();
             JSONArray jsonArrayResult = acceso.getJSONArray("result");
             for (int i = 0; i < jsonArrayResult.length(); i++) {
-                Post post = new Post(Integer.parseInt(jsonArrayResult.getJSONObject(i).get("id").toString()), Integer.parseInt(jsonArrayResult.getJSONObject(i).get("user_id").toString()), jsonArrayResult.getJSONObject(i).get("title").toString(), jsonArrayResult.getJSONObject(i).get("body").toString(), jsonArrayResult.getJSONObject(i).getJSONObject("_links").get("self").toString(), jsonArrayResult.getJSONObject(i).getJSONObject("_links").get("edit").toString());
+                Post post = new Post(Integer.parseInt(jsonArrayResult.getJSONObject(i).get("id").toString()), Integer.parseInt(jsonArrayResult.getJSONObject(i).get("user_id").toString()), jsonArrayResult.getJSONObject(i).get("title").toString(), jsonArrayResult.getJSONObject(i).get("body").toString(), jsonArrayResult.getJSONObject(i).getJSONObject("_links").getJSONObject("self").get("href").toString(), jsonArrayResult.getJSONObject(i).getJSONObject("_links").getJSONObject("edit").get("href").toString());
                 posts.add(post);
             }
 
@@ -65,7 +65,7 @@ public final class ControladorAPIGoRest {
             JSONObject acceso = SingletonAccesoAPI.getinstanceComment();
             JSONArray jsonArrayResult = acceso.getJSONArray("result");
             for (int i = 0; i < jsonArrayResult.length(); i++) {
-                Coment coment = new Coment(Integer.parseInt(jsonArrayResult.getJSONObject(i).get("id").toString()), Integer.parseInt(jsonArrayResult.getJSONObject(i).get("post_id").toString()), jsonArrayResult.getJSONObject(i).get("body").toString(), jsonArrayResult.getJSONObject(i).get("name").toString(), jsonArrayResult.getJSONObject(i).get("email").toString(), jsonArrayResult.getJSONObject(i).getJSONObject("_links").get("self").toString(), jsonArrayResult.getJSONObject(i).getJSONObject("_links").get("edit").toString());
+                Coment coment = new Coment(Integer.parseInt(jsonArrayResult.getJSONObject(i).get("id").toString()), Integer.parseInt(jsonArrayResult.getJSONObject(i).get("post_id").toString()), jsonArrayResult.getJSONObject(i).get("body").toString(), jsonArrayResult.getJSONObject(i).get("name").toString(), jsonArrayResult.getJSONObject(i).get("email").toString(), jsonArrayResult.getJSONObject(i).getJSONObject("_links").getJSONObject("self").get("href").toString(), jsonArrayResult.getJSONObject(i).getJSONObject("_links").getJSONObject("edit").get("href").toString());
                 coments.add(coment);
             }
 
@@ -81,7 +81,7 @@ public final class ControladorAPIGoRest {
             JSONObject acceso = SingletonAccesoAPI.getinstanceAlbum();
             JSONArray jsonArrayResult = acceso.getJSONArray("result");
             for (int i = 0; i < jsonArrayResult.length(); i++) {
-                Album album = new Album(Integer.parseInt(jsonArrayResult.getJSONObject(i).get("id").toString()), Integer.parseInt(jsonArrayResult.getJSONObject(i).get("user_id").toString()), jsonArrayResult.getJSONObject(i).get("title").toString(), jsonArrayResult.getJSONObject(i).getJSONObject("_links").get("self").toString(), jsonArrayResult.getJSONObject(i).getJSONObject("_links").get("edit").toString());
+                Album album = new Album(Integer.parseInt(jsonArrayResult.getJSONObject(i).get("id").toString()), Integer.parseInt(jsonArrayResult.getJSONObject(i).get("user_id").toString()), jsonArrayResult.getJSONObject(i).get("title").toString(), jsonArrayResult.getJSONObject(i).getJSONObject("_links").getJSONObject("self").get("href").toString(), jsonArrayResult.getJSONObject(i).getJSONObject("_links").getJSONObject("edit").get("href").toString());
                 albums.add(album);
             }
 
@@ -97,7 +97,7 @@ public final class ControladorAPIGoRest {
             JSONObject acceso = SingletonAccesoAPI.getinstancePhoto();
             JSONArray jsonArrayResult = acceso.getJSONArray("result");
             for (int i = 0; i < jsonArrayResult.length(); i++) {
-                Photo photo = new Photo(Integer.parseInt(jsonArrayResult.getJSONObject(i).get("id").toString()), Integer.parseInt(jsonArrayResult.getJSONObject(i).get("album_id").toString()), jsonArrayResult.getJSONObject(i).get("title").toString(), jsonArrayResult.getJSONObject(i).get("url").toString(), jsonArrayResult.getJSONObject(i).get("thumbnail").toString(), jsonArrayResult.getJSONObject(i).getJSONObject("_links").get("self").toString(), jsonArrayResult.getJSONObject(i).getJSONObject("_links").get("edit").toString());
+                Photo photo = new Photo(Integer.parseInt(jsonArrayResult.getJSONObject(i).get("id").toString()), Integer.parseInt(jsonArrayResult.getJSONObject(i).get("album_id").toString()), jsonArrayResult.getJSONObject(i).get("title").toString(), jsonArrayResult.getJSONObject(i).get("url").toString(), jsonArrayResult.getJSONObject(i).get("thumbnail").toString(), jsonArrayResult.getJSONObject(i).getJSONObject("_links").getJSONObject("self").get("href").toString(), jsonArrayResult.getJSONObject(i).getJSONObject("_links").getJSONObject("edit").get("href").toString());
                 photos.add(photo);
             }
 

@@ -8,16 +8,21 @@ import edu.cecar.modelos.User;
 import edu.cecar.controladores.ControladorAPIGoRest;
 import edu.cecar.controladores.ControladorAlbum;
 import edu.cecar.controladores.ControladorComent;
+import edu.cecar.controladores.ControladorImagen;
 import edu.cecar.controladores.ControladorPhoto;
 import edu.cecar.controladores.ControladorPost;
+import edu.cecar.controladores.ControladorRenderizarCelda;
 import edu.cecar.controladores.ControladorUser;
 import java.awt.Toolkit;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -28,10 +33,14 @@ public class VistaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form NewJFrame
      */
+    DefaultTableModel modeloTablaUserListar = new DefaultTableModel();
+
     public VistaPrincipal() {
         initComponents();
         panel_tablas2.setVisible(false);
-        panel_listar.setVisible(true);
+        panel_listar.setVisible(false);
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<DefaultTableModel>(modeloTablaUserListar);
+        table_userListar.setRowSorter(sorter);
     }
 
     /**
@@ -69,7 +78,12 @@ public class VistaPrincipal extends javax.swing.JFrame {
         panel_listar = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane7 = new javax.swing.JScrollPane();
-        table_user1 = new javax.swing.JTable();
+        table_userListar = new javax.swing.JTable();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        menu_cerrarSesion = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        menu_salir = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("GoRest");
@@ -119,19 +133,24 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jPanelLayout.setVerticalGroup(
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelLayout.createSequentialGroup()
-                .addGap(164, 164, 164)
+                .addGap(150, 150, 150)
                 .addComponent(bt_Listar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(187, 187, 187)
                 .addComponent(bt_Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(195, 195, 195)
                 .addComponent(bt_Migrar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(555, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        panel.setBackground(new java.awt.Color(255, 204, 102));
         panel.setMinimumSize(new java.awt.Dimension(0, 0));
+
+        panel_tablas2.setBackground(new java.awt.Color(255, 204, 102));
 
         jScrollPane1.setMinimumSize(new java.awt.Dimension(636, 1047));
         jScrollPane1.setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
+
+        jPanel1.setBackground(new java.awt.Color(255, 204, 102));
 
         jLabel1.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         jLabel1.setText("User");
@@ -144,6 +163,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
             }
         ));
+        table_user.setEnabled(false);
         jScrollPane2.setViewportView(table_user);
 
         jLabel2.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
@@ -157,6 +177,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
             }
         ));
+        table_posts.setEnabled(false);
         jScrollPane3.setViewportView(table_posts);
 
         jLabel3.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
@@ -170,6 +191,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
             }
         ));
+        table_comments.setEnabled(false);
         jScrollPane4.setViewportView(table_comments);
 
         jLabel4.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
@@ -183,6 +205,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
             }
         ));
+        table_albums.setEnabled(false);
         jScrollPane5.setViewportView(table_albums);
 
         jLabel5.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
@@ -196,6 +219,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
             }
         ));
+        table_photos.setEnabled(false);
         jScrollPane6.setViewportView(table_photos);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -207,20 +231,17 @@ public class VistaPrincipal extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1209, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1131, Short.MAX_VALUE)
                     .addComponent(jScrollPane4)
                     .addComponent(jScrollPane5)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 1209, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                    .addComponent(jScrollPane6)
+                    .addComponent(jScrollPane2))
+                .addContainerGap(1021, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -255,20 +276,20 @@ public class VistaPrincipal extends javax.swing.JFrame {
         panel_tablas2Layout.setHorizontalGroup(
             panel_tablas2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_tablas2Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 1018, Short.MAX_VALUE))
         );
         panel_tablas2Layout.setVerticalGroup(
             panel_tablas2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_tablas2Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 321, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1198, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
+
+        panel_listar.setBackground(new java.awt.Color(255, 204, 102));
 
         jLabel6.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         jLabel6.setText("User");
 
-        table_user1.setModel(new javax.swing.table.DefaultTableModel(
+        table_userListar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -276,29 +297,36 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane7.setViewportView(table_user1);
+        table_userListar.setEnabled(false);
+        table_userListar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                table_userListarMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                table_userListarMousePressed(evt);
+            }
+        });
+        jScrollPane7.setViewportView(table_userListar);
 
         javax.swing.GroupLayout panel_listarLayout = new javax.swing.GroupLayout(panel_listar);
         panel_listar.setLayout(panel_listarLayout);
         panel_listarLayout.setHorizontalGroup(
             panel_listarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_listarLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panel_listarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_listarLayout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 891, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(jLabel6)
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 1133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(168, 168, 168))
         );
         panel_listarLayout.setVerticalGroup(
             panel_listarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_listarLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(71, 71, 71)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 484, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(154, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
@@ -307,22 +335,46 @@ public class VistaPrincipal extends javax.swing.JFrame {
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLayout.createSequentialGroup()
                 .addComponent(panel_tablas2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(216, Short.MAX_VALUE))
             .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panelLayout.createSequentialGroup()
-                    .addGap(116, 116, 116)
-                    .addComponent(panel_listar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(116, Short.MAX_VALUE)))
+                    .addComponent(panel_listar, javax.swing.GroupLayout.PREFERRED_SIZE, 1154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 1243, Short.MAX_VALUE)))
         );
         panelLayout.setVerticalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel_tablas2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(panelLayout.createSequentialGroup()
+                .addComponent(panel_tablas2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 383, Short.MAX_VALUE))
             .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panelLayout.createSequentialGroup()
-                    .addGap(222, 222, 222)
+                    .addGap(96, 96, 96)
                     .addComponent(panel_listar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(222, Short.MAX_VALUE)))
+                    .addContainerGap(749, Short.MAX_VALUE)))
         );
+
+        jMenu1.setText("Opciones");
+
+        menu_cerrarSesion.setText("Cerrar Sesión");
+        menu_cerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_cerrarSesionActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menu_cerrarSesion);
+        jMenu1.add(jSeparator1);
+
+        menu_salir.setText("Salir");
+        menu_salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_salirActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menu_salir);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -336,18 +388,15 @@ public class VistaPrincipal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1581, Short.MAX_VALUE)
+            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_BuscarActionPerformed
         // TODO add your handling code here:
-        panel_tablas2.setVisible(true);
         panel_listar.setVisible(false);
+        panel_tablas2.setVisible(false);
         table_albums.setModel(new DefaultTableModel());
         table_user.setModel(new DefaultTableModel());
         table_posts.setModel(new DefaultTableModel());
@@ -359,7 +408,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
             int id_post = 0;
             id_user = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del usuario: "));
             ControladorAPIGoRest controladorAPIGoRest = new ControladorAPIGoRest();
-
+            ControladorImagen controladorImagen = new ControladorImagen();
             ArrayList<User> users = controladorAPIGoRest.obtenerUser();
             DefaultTableModel modeloUser = new DefaultTableModel();
             modeloUser.addColumn("ID");
@@ -376,7 +425,10 @@ public class VistaPrincipal extends javax.swing.JFrame {
             modeloUser.addColumn("Edit");
             modeloUser.addColumn("Avatar");
             table_user.setModel(modeloUser);
-            String datosUser[] = new String[13];
+            table_user.setRowHeight(120);
+            table_user.getColumnModel().getColumn(12).setPreferredWidth(150);
+
+            Object datosUser[] = new Object[13];
 
             ArrayList<Post> posts = controladorAPIGoRest.obtenerPost();
             DefaultTableModel modeloPost = new DefaultTableModel();
@@ -405,7 +457,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
             modeloPhoto.addColumn("Self");
             modeloPhoto.addColumn("Edit");
             table_photos.setModel(modeloPhoto);
-            String datosPhoto[] = new String[7];
+            Object datosPhoto[] = new Object[7];
 
             ArrayList<Coment> coments = controladorAPIGoRest.obtenerComent();
             DefaultTableModel modeloComent = new DefaultTableModel();
@@ -435,64 +487,89 @@ public class VistaPrincipal extends javax.swing.JFrame {
                 }
             }
 
-            //falta descargar imagenes.
             users.stream().filter(u -> u.getId_user() == id_user).forEach((u) -> {
-                datosUser[0] = u.getId_user() + "";
-                datosUser[1] = u.getFirst_name();
-                datosUser[2] = u.getLast_name();
-                datosUser[3] = u.getGender();
-                datosUser[4] = u.getDob();
-                datosUser[5] = u.getEmail();
-                datosUser[6] = u.getPhone();
-                datosUser[7] = u.getWebsite();
-                datosUser[8] = u.getAdress();
-                datosUser[9] = u.getStatus();
-                modeloUser.addRow(datosUser);
-            });
-
-            //falta descargar imagenes.
-            posts.stream().filter(p -> p.getId_user() == id_user).forEach((p) -> {
-                datosPost[0] = p.getId_post() + "";
-                datosPost[1] = p.getId_user() + "";
-                datosPost[2] = p.getTitle();
-                datosPost[3] = p.getBody();
-                modeloPost.addRow(datosPost);
-            });
-
-            //Falta descargar imagenes.
-            albums.stream().filter(a -> a.getId_user() == id_user).forEach((a) -> {
-                datosAlbum[0] = a.getId_album() + "";
-                datosAlbum[1] = a.getId_user() + "";
-                datosAlbum[2] = a.getTitle();
-                modeloAlbum.addRow(datosAlbum);
-            });
-
-            //falta descargar imagenes.
-            for (int i = 0; i < coments.size(); i++) {
-                if (coments.get(i).getId_post() == id_post) {
-                    datosComent[0] = coments.get(i).getId_coment() + "";
-                    datosComent[1] = coments.get(i).getId_post() + "";
-                    datosComent[2] = coments.get(i).getBody();
-                    datosComent[3] = coments.get(i).getName();
-                    datosComent[4] = coments.get(i).getEmail();
-                    modeloComent.addRow(datosComent);
+                try {
+                    datosUser[0] = u.getId_user() + "";
+                    datosUser[1] = u.getFirst_name();
+                    datosUser[2] = u.getLast_name();
+                    datosUser[3] = u.getGender();
+                    datosUser[4] = u.getDob();
+                    datosUser[5] = u.getEmail();
+                    datosUser[6] = u.getPhone();
+                    datosUser[7] = u.getWebsite();
+                    datosUser[8] = u.getAdress();
+                    datosUser[9] = u.getStatus();
+                    datosUser[10] = u.getSelf();
+                    datosUser[11] = u.getEdit();
+                    ImageIcon icon = new ImageIcon(controladorImagen.descargarImagen(u.getAvatar(),u.getFirst_name()));
+                    table_user.getColumnModel().getColumn(12).setCellRenderer(new ControladorRenderizarCelda());
+                    datosUser[12] = icon;
+                    modeloUser.addRow(datosUser);
+                } catch (IOException ex) {
+                    Logger.getLogger(VistaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            });
+
+            if (table_user.getRowCount() > 0) {
+                panel_tablas2.setVisible(true);
+
+                posts.stream().filter(p -> p.getId_user() == id_user).forEach((p) -> {
+                    datosPost[0] = p.getId_post() + "";
+                    datosPost[1] = p.getId_user() + "";
+                    datosPost[2] = p.getTitle();
+                    datosPost[3] = p.getBody();
+                    datosPost[4] = p.getSelf();
+                    datosPost[5] = p.getEdit();
+                    modeloPost.addRow(datosPost);
+                });
+
+                albums.stream().filter(a -> a.getId_user() == id_user).forEach((a) -> {
+                    datosAlbum[0] = a.getId_album() + "";
+                    datosAlbum[1] = a.getId_user() + "";
+                    datosAlbum[2] = a.getTitle();
+                    datosAlbum[3] = a.getSelf();
+                    datosAlbum[4] = a.getEdit();
+                    modeloAlbum.addRow(datosAlbum);
+                });
+
+                for (int i = 0; i < coments.size(); i++) {
+                    if (coments.get(i).getId_post() == id_post) {
+                        datosComent[0] = coments.get(i).getId_coment() + "";
+                        datosComent[1] = coments.get(i).getId_post() + "";
+                        datosComent[2] = coments.get(i).getBody();
+                        datosComent[3] = coments.get(i).getName();
+                        datosComent[4] = coments.get(i).getEmail();
+                        datosComent[5] = coments.get(i).getSelf();
+                        datosComent[6] = coments.get(i).getEdit();
+                        modeloComent.addRow(datosComent);
+                    }
+                }
+
+                for (int i = 0; i < photos.size(); i++) {
+                    if (photos.get(i).getId_album() == id_album) {
+                        datosPhoto[0] = photos.get(i).getId_photo() + "";
+                        datosPhoto[1] = photos.get(i).getId_album() + "";
+                        datosPhoto[2] = photos.get(i).getTitle();
+                        ImageIcon icon = new ImageIcon(controladorImagen.descargarImagen(photos.get(i).getUrl(),"url"));
+                        table_user.getColumnModel().getColumn(3).setCellRenderer(new ControladorRenderizarCelda());
+                        datosPhoto[3] = icon;
+                        ImageIcon thumbnail = new ImageIcon(controladorImagen.descargarImagen(photos.get(i).getThumbnail(),"thumbnail"));
+                        table_user.getColumnModel().getColumn(4).setCellRenderer(new ControladorRenderizarCelda());
+                        datosPhoto[4] = thumbnail;
+                        datosPhoto[5] = photos.get(i).getSelf();
+                        datosPhoto[6] = photos.get(i).getEdit();
+                        modeloPhoto.addRow(datosPhoto);
+                    }
+                }
+            } else {
+                panel_tablas2.setVisible(false);
+                JOptionPane.showMessageDialog(null, "ID de usuario no encontrado.");
             }
 
-            //falta descargar imagenes. 
-            for (int i = 0; i < photos.size(); i++) {
-                if (photos.get(i).getId_album() == id_album) {
-                    datosPhoto[0] = photos.get(i).getId_photo() + "";
-                    datosPhoto[1] = photos.get(i).getId_album() + "";
-                    datosPhoto[2] = photos.get(i).getTitle();
-                    datosPhoto[3] = photos.get(i).getUrl();
-                    modeloPhoto.addRow(datosPhoto);
-                }
-            }
-
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "ID ingresado no encontrado o erroneo");
+        } catch (Exception e) {
             panel_tablas2.setVisible(false);
+            JOptionPane.showMessageDialog(null, "ID de usuario erroneo");
+
         }
 
 
@@ -502,19 +579,19 @@ public class VistaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         panel_tablas2.setVisible(false);
         panel_listar.setVisible(true);
-        table_user1.setModel(new DefaultTableModel());
+        modeloTablaUserListar.setColumnCount(0);
+        modeloTablaUserListar.setRowCount(0);
         ControladorAPIGoRest controladorAPIGoRest = new ControladorAPIGoRest();
         ArrayList<User> users = controladorAPIGoRest.obtenerUser();
-        DefaultTableModel modelo = new DefaultTableModel();
-        modelo.addColumn("First Name");
-        modelo.addColumn("Last Name");
-        modelo.addColumn("Gender");
-        modelo.addColumn("Dob");
-        modelo.addColumn("Email");
-        modelo.addColumn("Phone");
-        modelo.addColumn("Website");
-        modelo.addColumn("Address");
-        modelo.addColumn("Status");
+        modeloTablaUserListar.addColumn("First Name");
+        modeloTablaUserListar.addColumn("Last Name");
+        modeloTablaUserListar.addColumn("Gender");
+        modeloTablaUserListar.addColumn("Dob");
+        modeloTablaUserListar.addColumn("Email");
+        modeloTablaUserListar.addColumn("Phone");
+        modeloTablaUserListar.addColumn("Website");
+        modeloTablaUserListar.addColumn("Address");
+        modeloTablaUserListar.addColumn("Status");
         String datos[] = new String[9];
         for (User user : users) {
             datos[0] = user.getFirst_name();
@@ -526,9 +603,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
             datos[6] = user.getWebsite();
             datos[7] = user.getAdress();
             datos[8] = user.getStatus();
-            modelo.addRow(datos);
+            modeloTablaUserListar.addRow(datos);
         }
-        table_user1.setModel(modelo);
+        table_userListar.setModel(modeloTablaUserListar);
     }//GEN-LAST:event_bt_ListarActionPerformed
 
     private void bt_MigrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_MigrarActionPerformed
@@ -574,6 +651,30 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_bt_MigrarActionPerformed
 
+    private void table_userListarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_userListarMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_table_userListarMouseClicked
+
+    private void table_userListarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_userListarMousePressed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_table_userListarMousePressed
+
+    private void menu_cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_cerrarSesionActionPerformed
+        // TODO add your handling code here:
+        dispose();
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new VistaLogPanel().setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_menu_cerrarSesionActionPerformed
+
+    private void menu_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_salirActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_menu_salirActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -603,12 +704,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VistaPrincipal().setVisible(true);
-            }
-        });
     }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_Buscar;
@@ -620,6 +718,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -629,6 +729,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JMenuItem menu_cerrarSesion;
+    private javax.swing.JMenuItem menu_salir;
     private javax.swing.JPanel panel;
     private javax.swing.JPanel panel_listar;
     private javax.swing.JPanel panel_tablas2;
@@ -637,6 +740,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTable table_photos;
     private javax.swing.JTable table_posts;
     private javax.swing.JTable table_user;
-    private javax.swing.JTable table_user1;
+    private javax.swing.JTable table_userListar;
     // End of variables declaration//GEN-END:variables
 }

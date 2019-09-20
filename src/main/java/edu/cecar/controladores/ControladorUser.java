@@ -38,5 +38,10 @@ public final class ControladorUser {
         preparedStatement.setString(13, user.getAvatar());        
         preparedStatement.execute();
     }
+    
+    public void eliminarTodo()throws SQLException{
+        PreparedStatement preparedStatement = SingletonConexionBD.getinstance().prepareStatement("delete from user");
+        preparedStatement.execute();
+    }
 
 }

@@ -29,7 +29,12 @@ public final class ControladorComent {
         preparedStatement.setString(5, coment.getEmail());
         preparedStatement.setString(6, coment.getSelf());
         preparedStatement.setString(7, coment.getEdit());
-        
+
+        preparedStatement.execute();
+    }
+
+    public void eliminarTodo() throws SQLException {
+        PreparedStatement preparedStatement = SingletonConexionBD.getinstance().prepareStatement("delete from coment");
         preparedStatement.execute();
     }
 

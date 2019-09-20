@@ -13,6 +13,7 @@ import edu.cecar.controladores.ControladorPhoto;
 import edu.cecar.controladores.ControladorPost;
 import edu.cecar.controladores.ControladorRenderizarCelda;
 import edu.cecar.controladores.ControladorUser;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -33,7 +34,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form NewJFrame
      */
-    DefaultTableModel modeloTablaUserListar = new DefaultTableModel();
+    DefaultTableModel modeloTablaUserListar = new DefaultTableModel() {
+        public boolean isCellEditable(int rowIndex, int mColIndex) {
+            return false;
+        }
+    };
 
     public VistaPrincipal() {
         initComponents();
@@ -41,6 +46,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
         panel_listar.setVisible(false);
         TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<DefaultTableModel>(modeloTablaUserListar);
         table_userListar.setRowSorter(sorter);
+        String path = System.getProperty("user.dir");
+        Image icon = Toolkit.getDefaultToolkit().getImage(path + "\\src\\main\\resources\\icono_gorest.png");
+        this.setIconImage(icon);
     }
 
     /**
@@ -95,6 +103,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jPanel.setPreferredSize(new java.awt.Dimension(125, 733));
 
         bt_Listar.setBackground(new java.awt.Color(255, 153, 1));
+        bt_Listar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/baseline_list_black_18dp.png"))); // NOI18N
         bt_Listar.setText("Listar");
         bt_Listar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -103,6 +112,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         });
 
         bt_Buscar.setBackground(new java.awt.Color(255, 153, 1));
+        bt_Buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/baseline_search_black_18dp.png"))); // NOI18N
         bt_Buscar.setText("Buscar");
         bt_Buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,6 +121,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         });
 
         bt_Migrar.setBackground(new java.awt.Color(255, 153, 1));
+        bt_Migrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/baseline_backup_black_18dp.png"))); // NOI18N
         bt_Migrar.setText("Migrar");
         bt_Migrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -127,18 +138,18 @@ public class VistaPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(bt_Listar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(bt_Migrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bt_Buscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE))
+                    .addComponent(bt_Buscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanelLayout.setVerticalGroup(
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelLayout.createSequentialGroup()
                 .addGap(150, 150, 150)
-                .addComponent(bt_Listar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(187, 187, 187)
-                .addComponent(bt_Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(195, 195, 195)
-                .addComponent(bt_Migrar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bt_Listar)
+                .addGap(175, 175, 175)
+                .addComponent(bt_Buscar)
+                .addGap(180, 180, 180)
+                .addComponent(bt_Migrar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -163,7 +174,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
             }
         ));
-        table_user.setEnabled(false);
         jScrollPane2.setViewportView(table_user);
 
         jLabel2.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
@@ -177,7 +187,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
             }
         ));
-        table_posts.setEnabled(false);
         jScrollPane3.setViewportView(table_posts);
 
         jLabel3.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
@@ -191,7 +200,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
             }
         ));
-        table_comments.setEnabled(false);
         jScrollPane4.setViewportView(table_comments);
 
         jLabel4.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
@@ -205,7 +213,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
             }
         ));
-        table_albums.setEnabled(false);
         jScrollPane5.setViewportView(table_albums);
 
         jLabel5.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
@@ -219,7 +226,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
             }
         ));
-        table_photos.setEnabled(false);
         jScrollPane6.setViewportView(table_photos);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -277,7 +283,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
             panel_tablas2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_tablas2Layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 1018, Short.MAX_VALUE))
+                .addGap(0, 1224, Short.MAX_VALUE))
         );
         panel_tablas2Layout.setVerticalGroup(
             panel_tablas2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -297,7 +303,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
             }
         ));
-        table_userListar.setEnabled(false);
         table_userListar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 table_userListarMouseClicked(evt);
@@ -334,8 +339,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
         panelLayout.setHorizontalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLayout.createSequentialGroup()
-                .addComponent(panel_tablas2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(216, Short.MAX_VALUE))
+                .addComponent(panel_tablas2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
             .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panelLayout.createSequentialGroup()
                     .addComponent(panel_listar, javax.swing.GroupLayout.PREFERRED_SIZE, 1154, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -353,8 +358,12 @@ public class VistaPrincipal extends javax.swing.JFrame {
                     .addContainerGap(749, Short.MAX_VALUE)))
         );
 
+        jMenuBar1.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/baseline_settings_applications_black_18dp_1.png"))); // NOI18N
         jMenu1.setText("Opciones");
 
+        menu_cerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/baseline_exit_to_app_black_18dp_1.png"))); // NOI18N
         menu_cerrarSesion.setText("Cerrar Sesión");
         menu_cerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -364,6 +373,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenu1.add(menu_cerrarSesion);
         jMenu1.add(jSeparator1);
 
+        menu_salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/baseline_power_settings_new_black_18dp.png"))); // NOI18N
         menu_salir.setText("Salir");
         menu_salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -410,7 +420,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
             ControladorAPIGoRest controladorAPIGoRest = new ControladorAPIGoRest();
             ControladorImagen controladorImagen = new ControladorImagen();
             ArrayList<User> users = controladorAPIGoRest.obtenerUser();
-            DefaultTableModel modeloUser = new DefaultTableModel();
+            DefaultTableModel modeloUser = new DefaultTableModel() {
+                public boolean isCellEditable(int rowIndex, int mColIndex) {
+                    return false;
+                }
+            };
             modeloUser.addColumn("ID");
             modeloUser.addColumn("First Name");
             modeloUser.addColumn("Last Name");
@@ -431,7 +445,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
             Object datosUser[] = new Object[13];
 
             ArrayList<Post> posts = controladorAPIGoRest.obtenerPost();
-            DefaultTableModel modeloPost = new DefaultTableModel();
+            DefaultTableModel modeloPost = new DefaultTableModel() {
+                public boolean isCellEditable(int rowIndex, int mColIndex) {
+                    return false;
+                }
+            };
             modeloPost.addColumn("ID Post");
             modeloPost.addColumn("ID User");
             modeloPost.addColumn("Title");
@@ -448,7 +466,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
             }
 
             ArrayList<Photo> photos = controladorAPIGoRest.obtenerPhoto();
-            DefaultTableModel modeloPhoto = new DefaultTableModel();
+            DefaultTableModel modeloPhoto = new DefaultTableModel() {
+                public boolean isCellEditable(int rowIndex, int mColIndex) {
+                    return false;
+                }
+            };
             modeloPhoto.addColumn("ID Photo");
             modeloPhoto.addColumn("ID Album");
             modeloPhoto.addColumn("Title");
@@ -460,7 +482,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
             Object datosPhoto[] = new Object[7];
 
             ArrayList<Coment> coments = controladorAPIGoRest.obtenerComent();
-            DefaultTableModel modeloComent = new DefaultTableModel();
+            DefaultTableModel modeloComent = new DefaultTableModel() {
+                public boolean isCellEditable(int rowIndex, int mColIndex) {
+                    return false;
+                }
+            };
             modeloComent.addColumn("ID Coment");
             modeloComent.addColumn("ID Post");
             modeloComent.addColumn("Body");
@@ -472,7 +498,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
             String datosComent[] = new String[7];
 
             ArrayList<Album> albums = controladorAPIGoRest.obtenerAlbum();
-            DefaultTableModel modeloAlbum = new DefaultTableModel();
+            DefaultTableModel modeloAlbum = new DefaultTableModel() {
+                public boolean isCellEditable(int rowIndex, int mColIndex) {
+                    return false;
+                }
+            };
             modeloAlbum.addColumn("ID Album");
             modeloAlbum.addColumn("ID User");
             modeloAlbum.addColumn("Title");
@@ -501,7 +531,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
                     datosUser[9] = u.getStatus();
                     datosUser[10] = u.getSelf();
                     datosUser[11] = u.getEdit();
-                    ImageIcon icon = new ImageIcon(controladorImagen.descargarImagen(u.getAvatar(),u.getFirst_name()));
+                    ImageIcon icon = new ImageIcon(controladorImagen.descargarImagen(u.getAvatar(), u.getFirst_name()));
                     table_user.getColumnModel().getColumn(12).setCellRenderer(new ControladorRenderizarCelda());
                     datosUser[12] = icon;
                     modeloUser.addRow(datosUser);
@@ -550,10 +580,10 @@ public class VistaPrincipal extends javax.swing.JFrame {
                         datosPhoto[0] = photos.get(i).getId_photo() + "";
                         datosPhoto[1] = photos.get(i).getId_album() + "";
                         datosPhoto[2] = photos.get(i).getTitle();
-                        ImageIcon icon = new ImageIcon(controladorImagen.descargarImagen(photos.get(i).getUrl(),"url"));
+                        ImageIcon icon = new ImageIcon(controladorImagen.descargarImagen(photos.get(i).getUrl(), "url"));
                         table_user.getColumnModel().getColumn(3).setCellRenderer(new ControladorRenderizarCelda());
                         datosPhoto[3] = icon;
-                        ImageIcon thumbnail = new ImageIcon(controladorImagen.descargarImagen(photos.get(i).getThumbnail(),"thumbnail"));
+                        ImageIcon thumbnail = new ImageIcon(controladorImagen.descargarImagen(photos.get(i).getThumbnail(), "thumbnail"));
                         table_user.getColumnModel().getColumn(4).setCellRenderer(new ControladorRenderizarCelda());
                         datosPhoto[4] = thumbnail;
                         datosPhoto[5] = photos.get(i).getSelf();
@@ -626,6 +656,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
         ArrayList<Album> albums = controladorAPIGoRest.obtenerAlbum();
 
         try {
+            controladorUser.eliminarTodo();
+            controladorComent.eliminarTodo();
+            controladorAlbum.eliminarTodo();
+            controladorPhoto.eliminarTodo();
+            controladorPost.eliminarTodo();
             for (int i = 0; i < users.size(); i++) {
                 controladorUser.guardar(users.get(i));
             }
@@ -705,8 +740,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         /* Create and display the form */
     }
-    
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_Buscar;

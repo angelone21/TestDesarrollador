@@ -34,7 +34,7 @@ public final class ControladorUsuario {
     }
 
     public boolean registrarUsuario(String usuario, String password) throws SQLException {
-        if (usuario.isEmpty() && password.isEmpty() || (usuario.isEmpty() || password.isEmpty())) {
+        if ((usuario.isEmpty() && password.isEmpty()) || (usuario.isEmpty() || password.isEmpty())) {
             return false;
         } else {
             boolean flag = false;

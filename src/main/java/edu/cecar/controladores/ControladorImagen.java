@@ -26,8 +26,8 @@ public class ControladorImagen {
         OutputStream outputStream = null;
         URL url1 = new URL(url);
         inputStream = url1.openStream();
-        //C:\Users\Vincenzo Angelone\Documents\NetBeansProjects\TestDesarrollador
-        outputStream = new FileOutputStream("c:\\Users\\Vincenzo Angelone\\Documents\\NetBeansProjects\\TestDesarrollador\\imagen" + i + ".jpg");
+        String path = System.getProperty("user.dir");
+        outputStream = new FileOutputStream(path +"\\"+ "imagen" + i + ".jpg");
         String nombre = "imagen" + i + ".jpg";
 
         byte[] buffer = new byte[2048];

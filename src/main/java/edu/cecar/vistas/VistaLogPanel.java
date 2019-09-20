@@ -7,9 +7,9 @@ package edu.cecar.vistas;
 
 import edu.cecar.componentes.singletons.SingletonAccesoAPI;
 import edu.cecar.controladores.ControladorUsuario;
-import java.awt.Color;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
-import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,8 +24,10 @@ public final class VistaLogPanel extends javax.swing.JFrame {
     public VistaLogPanel() {
         initComponents();
         this.setLocationRelativeTo(null);
-        //this.getContentPane().setBackground(Color.getHSBColor(33, 82, 44));
         panel_registro.setVisible(false);
+        String path = System.getProperty("user.dir");
+        Image icon = Toolkit.getDefaultToolkit().getImage(path+"\\src\\main\\resources\\icono_gorest.png");
+        this.setIconImage(icon);
     }
 
     /**
@@ -39,6 +41,7 @@ public final class VistaLogPanel extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         panel_entrar = new javax.swing.JPanel();
         bt_Entrar = new javax.swing.JButton();
         pass_Contraseña = new javax.swing.JPasswordField();
@@ -79,13 +82,19 @@ public final class VistaLogPanel extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 153, 51));
         jPanel2.setLayout(null);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icono_gorest.PNG"))); // NOI18N
+        jPanel2.add(jLabel1);
+        jLabel1.setBounds(240, 0, 140, 60);
+
         getContentPane().add(jPanel2);
         jPanel2.setBounds(0, 30, 610, 60);
 
         panel_entrar.setBackground(new java.awt.Color(255, 204, 102));
 
         bt_Entrar.setFont(new java.awt.Font("Trebuchet MS", 0, 11)); // NOI18N
-        bt_Entrar.setText("Entrar");
+        bt_Entrar.setText("Iniciar Sesión");
+        bt_Entrar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         bt_Entrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_EntrarActionPerformed(evt);
@@ -96,12 +105,18 @@ public final class VistaLogPanel extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 pass_ContraseñaKeyPressed(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                pass_ContraseñaKeyTyped(evt);
+            }
         });
 
         text_Usuario.setFont(new java.awt.Font("Trebuchet MS", 0, 11)); // NOI18N
         text_Usuario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 text_UsuarioKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                text_UsuarioKeyTyped(evt);
             }
         });
 
@@ -112,7 +127,9 @@ public final class VistaLogPanel extends javax.swing.JFrame {
         jLabel2.setText("Contraseña: ");
 
         bt_registrarse.setFont(new java.awt.Font("Trebuchet MS", 0, 11)); // NOI18N
-        bt_registrarse.setText("Registro");
+        bt_registrarse.setIcon(new javax.swing.ImageIcon(getClass().getResource("/baseline_person_add_black_18dp.png"))); // NOI18N
+        bt_registrarse.setText("Registrar");
+        bt_registrarse.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         bt_registrarse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_registrarseActionPerformed(evt);
@@ -167,7 +184,9 @@ public final class VistaLogPanel extends javax.swing.JFrame {
         panel_registro.setBackground(new java.awt.Color(255, 204, 102));
 
         bt_registro.setFont(new java.awt.Font("Trebuchet MS", 0, 11)); // NOI18N
+        bt_registro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/baseline_person_add_black_18dp.png"))); // NOI18N
         bt_registro.setText("Registrarse");
+        bt_registro.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         bt_registro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_registroActionPerformed(evt);
@@ -178,12 +197,18 @@ public final class VistaLogPanel extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 pass_ContraseñaRegistroKeyPressed(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                pass_ContraseñaRegistroKeyTyped(evt);
+            }
         });
 
         text_UsuarioRegistro.setFont(new java.awt.Font("Trebuchet MS", 0, 11)); // NOI18N
         text_UsuarioRegistro.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 text_UsuarioRegistroKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                text_UsuarioRegistroKeyTyped(evt);
             }
         });
 
@@ -194,7 +219,9 @@ public final class VistaLogPanel extends javax.swing.JFrame {
         jLabel5.setText("Contraseña: ");
 
         bt_Logearse.setFont(new java.awt.Font("Trebuchet MS", 0, 11)); // NOI18N
-        bt_Logearse.setText("Log");
+        bt_Logearse.setIcon(new javax.swing.ImageIcon(getClass().getResource("/baseline_home_black_18dp.png"))); // NOI18N
+        bt_Logearse.setText("Inicio");
+        bt_Logearse.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         bt_Logearse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_LogearseActionPerformed(evt);
@@ -292,9 +319,7 @@ public final class VistaLogPanel extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "No hay conexion con la base de datos, intente nuevamente.");
             }
         }
-        if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
-            evt.consume();
-        }
+
 
     }//GEN-LAST:event_pass_ContraseñaKeyPressed
 
@@ -307,7 +332,7 @@ public final class VistaLogPanel extends javax.swing.JFrame {
                 panel_registro.setVisible(false);
                 panel_entrar.setVisible(true);
             } else {
-                JOptionPane.showMessageDialog(null, "Ya hay alguien registrado con ese Username.");
+                JOptionPane.showMessageDialog(null, "Error datos erroneos o faltantes");
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "No hay conexion con la base de datos, intente nuevamente.");
@@ -324,14 +349,11 @@ public final class VistaLogPanel extends javax.swing.JFrame {
                     panel_registro.setVisible(false);
                     panel_entrar.setVisible(true);
                 } else {
-                    JOptionPane.showMessageDialog(null, "Ya hay alguien registrado con ese Username.");
+                    JOptionPane.showMessageDialog(null, "Error, datos erroneos o faltantes");
                 }
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "No hay conexion con la base de datos, intente nuevamente.");
             }
-        }
-        if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
-            evt.consume();
         }
     }//GEN-LAST:event_pass_ContraseñaRegistroKeyPressed
 
@@ -357,17 +379,39 @@ public final class VistaLogPanel extends javax.swing.JFrame {
 
     private void text_UsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_text_UsuarioKeyPressed
         // TODO add your handling code here:
-        if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
-            evt.consume();
-        }
     }//GEN-LAST:event_text_UsuarioKeyPressed
 
     private void text_UsuarioRegistroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_text_UsuarioRegistroKeyPressed
         // TODO add your handling code here:
-        if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
+    }//GEN-LAST:event_text_UsuarioRegistroKeyPressed
+
+    private void text_UsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_text_UsuarioKeyTyped
+        // TODO add your handling code here
+        if (!Character.isLetter(evt.getKeyChar())&& !Character.isDigit(evt.getKeyChar())) {
             evt.consume();
         }
-    }//GEN-LAST:event_text_UsuarioRegistroKeyPressed
+    }//GEN-LAST:event_text_UsuarioKeyTyped
+
+    private void pass_ContraseñaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pass_ContraseñaKeyTyped
+        // TODO add your handling code here:
+        if (!Character.isLetter(evt.getKeyChar())&& !Character.isDigit(evt.getKeyChar())) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_pass_ContraseñaKeyTyped
+
+    private void text_UsuarioRegistroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_text_UsuarioRegistroKeyTyped
+        // TODO add your handling code here:
+        if (!Character.isLetter(evt.getKeyChar())&& !Character.isDigit(evt.getKeyChar())) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_text_UsuarioRegistroKeyTyped
+
+    private void pass_ContraseñaRegistroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pass_ContraseñaRegistroKeyTyped
+        // TODO add your handling code here:
+        if (!Character.isLetter(evt.getKeyChar())&& !Character.isDigit(evt.getKeyChar())) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_pass_ContraseñaRegistroKeyTyped
 
     /**
      * @param args the command line arguments
@@ -409,6 +453,7 @@ public final class VistaLogPanel extends javax.swing.JFrame {
     private javax.swing.JButton bt_Logearse;
     private javax.swing.JButton bt_registrarse;
     private javax.swing.JButton bt_registro;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

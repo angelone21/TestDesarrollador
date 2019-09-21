@@ -19,16 +19,16 @@ import java.net.URL;
  *
  * Copyrigth: CECAR
  */
-public class ControladorImagen {
+public final class ControladorImagen {
 
-    public String descargarImagen(String url, String i) throws IOException {
+    public String descargarImagen(String url, String usuario) throws IOException {
         InputStream inputStream = null;
         OutputStream outputStream = null;
         URL url1 = new URL(url);
         inputStream = url1.openStream();
         String path = System.getProperty("user.dir");
-        outputStream = new FileOutputStream(path +"\\"+ "imagen" + i + ".jpg");
-        String nombre = "imagen" + i + ".jpg";
+        outputStream = new FileOutputStream(path +"\\"+ "imagen" + usuario + ".jpg");
+        String nombre = "imagen" + usuario + ".jpg";
 
         byte[] buffer = new byte[2048];
         int tamaño;

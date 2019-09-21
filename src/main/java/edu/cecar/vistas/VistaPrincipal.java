@@ -293,7 +293,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         panel_listar.setBackground(new java.awt.Color(255, 204, 102));
 
         jLabel6.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
-        jLabel6.setText("User");
+        jLabel6.setText("Users");
 
         table_userListar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -479,6 +479,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
             modeloPhoto.addColumn("Self");
             modeloPhoto.addColumn("Edit");
             table_photos.setModel(modeloPhoto);
+            table_photos.setRowHeight(120);
+            table_photos.getColumnModel().getColumn(4).setPreferredWidth(150);
             Object datosPhoto[] = new Object[7];
 
             ArrayList<Coment> coments = controladorAPIGoRest.obtenerComent();
@@ -580,11 +582,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
                         datosPhoto[0] = photos.get(i).getId_photo() + "";
                         datosPhoto[1] = photos.get(i).getId_album() + "";
                         datosPhoto[2] = photos.get(i).getTitle();
-                        ImageIcon icon = new ImageIcon(controladorImagen.descargarImagen(photos.get(i).getUrl(), "url"));
-                        table_user.getColumnModel().getColumn(3).setCellRenderer(new ControladorRenderizarCelda());
-                        datosPhoto[3] = icon;
+                        datosPhoto[3] = photos.get(i).getUrl();
                         ImageIcon thumbnail = new ImageIcon(controladorImagen.descargarImagen(photos.get(i).getThumbnail(), "thumbnail"));
-                        table_user.getColumnModel().getColumn(4).setCellRenderer(new ControladorRenderizarCelda());
+                        table_photos.getColumnModel().getColumn(4).setCellRenderer(new ControladorRenderizarCelda());
                         datosPhoto[4] = thumbnail;
                         datosPhoto[5] = photos.get(i).getSelf();
                         datosPhoto[6] = photos.get(i).getEdit();
